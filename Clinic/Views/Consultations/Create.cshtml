@@ -16,12 +16,12 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @*<div class="form-group">
-        @Html.LabelFor(model => model.dateCreation, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.dateCreation, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.dateCreation, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
+            @Html.LabelFor(model => model.dateCreation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dateCreation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.dateCreation, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
     <div class="form-group">
         @Html.LabelFor(model => model.motif, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -111,6 +111,14 @@
         </div>
     </div>
 
+    <h3>Antecedent</h3>
+    <div class="form-group">
+        @Html.Label("Antecedent", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Editor("antecedent")
+        </div>
+    </div>
+
     <h3>Ordonnance</h3>
     <div class="form-group">
         @Html.Label("Prescription", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -127,7 +135,7 @@
     <div class="form-group">
         @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.Editor("vaccin")
+            @Html.Editor("vac")
         </div>
     </div>
     <div class="form-group">

@@ -36,6 +36,7 @@ namespace Clinic.Models.Controllers
             consultation.vaccin.description = getVaccin(consultation.ID_Consultation);
             consultation.ordonnance.prescription = getPrecription(consultation.ID_Consultation);
             consultation.ordonnance.medicament = getMedicament(consultation.ID_Consultation);
+            consultation.antecedent.description = getAntecedent(consultation.ID_Consultation);
             return View(consultation);
         }
 
@@ -56,12 +57,23 @@ namespace Clinic.Models.Controllers
         {
             Vaccin vaccin = new Vaccin();
             Ordonnance ordonnance = new Ordonnance();
+            Antecedent antecedentConsultation = new Antecedent();
             if (ModelState.IsValid)
             {
                 db.Consultations.Add(consultation);
                 string prescription = Request["prescription"].ToString();
                 string medicament = Request["medicament"].ToString();
-                string vac = Request["vaccin"].ToString();
+                string vac = Request["vac"].ToString();
+                string antecedent = Request["antecedent"];
+
+                if (!string.IsNullOrEmpty(antecedent))
+                {
+                    antecedentConsultation.ID_Consultation = consultation.ID_Consultation;
+                    antecedentConsultation.ID_Patient = consultation.ID_Patient;
+                    antecedentConsultation.description = antecedent;
+                    db.Antecedents.Add(antecedentConsultation);
+                }
+
                 if (!string.IsNullOrEmpty(vac))
                 {
                     vaccin.ID_Consultation = consultation.ID_Consultation;
@@ -99,6 +111,7 @@ namespace Clinic.Models.Controllers
             {
                 return HttpNotFound();
             }
+            consultation.antecedent.description = getAntecedent(consultation.ID_Consultation);
             consultation.vaccin.description = getVaccin(consultation.ID_Consultation);
             consultation.ordonnance.prescription = getPrecription(consultation.ID_Consultation);
             consultation.ordonnance.medicament = getMedicament(consultation.ID_Consultation);
@@ -123,6 +136,12 @@ namespace Clinic.Models.Controllers
             string medicament = db.Ordonnances.Where(ordonnance => ordonnance.ID_Consultation == idConsultation).Select(x => x.medicament).DefaultIfEmpty("").First();
             return medicament;
         }
+
+        public string getAntecedent(int idConsultation)
+        {
+            string antecedent = db.Antecedents.Where(a => a.ID_Consultation == idConsultation).Select(x => x.description).DefaultIfEmpty("").First();
+            return antecedent;
+        }
         // POST: Consultations/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -146,15 +165,38 @@ namespace Clinic.Models.Controllers
                 //ac.change_date = DateTime.Now;
                 Vaccin v = new Vaccin();
                 Ordonnance o = new Ordonnance();
+                Antecedent ant = new Antecedent();
                 var changeBy = (from s in db.Staffs where s.ID_Staff == consultation.ID_Staff select new {s.nom, s.prenom}).Single();
-                //ac.change_by = changeBy.nom +" "+ changeBy.prenom;
+                consultation.changeBy= changeBy.nom +" "+ changeBy.prenom;
+                consultation.changeDate = DateTime.Now;
                 //db.Audit_Consultation.Add(ac);
+                string viewAntecedent = Request["antecedent.description"].ToString();
                 string viewVaccin = Request["vaccin.description"].ToString();
                 string viewPrescription = Request["ordonnance.prescription"].ToString();
                 string viewMedicament = Request["ordonnance.medicament"].ToString();
 
                 int idVac = db.Vaccins.Where(id => id.ID_Consultation == consultation.ID_Consultation).Select(x => x.ID_Vaccin).DefaultIfEmpty(0).First();
                 int idOrd = db.Ordonnances.Where(id => id.ID_Consultation == consultation.ID_Consultation).Select(x => x.ID_Ordonnance).DefaultIfEmpty(0).First();
+                int idAnt = db.Antecedents.Where(id => id.ID_Consultation == consultation.ID_Consultation).Select(x => x.ID_Antecedent).DefaultIfEmpty(0).First();
+
+                if (idAnt > 0)
+                {
+                    if (!string.IsNullOrEmpty(viewAntecedent))
+                    {
+                        db.Database.ExecuteSqlCommand("Update Antecedents set description='" + viewAntecedent + "' where ID_Antecedent =" + idAnt);
+                    }
+                }
+                if (idAnt == 0)
+                {
+                    if (!string.IsNullOrEmpty(viewAntecedent))
+                    {
+                        ant.description = viewAntecedent.ToString();
+                        ant.ID_Consultation = consultation.ID_Consultation;
+                        ant.ID_Patient= consultation.ID_Patient;
+                        db.Antecedents.Add(ant);
+                    }
+
+                }
 
                 if (idVac > 0)
                 {
@@ -162,18 +204,18 @@ namespace Clinic.Models.Controllers
                     {
                         db.Database.ExecuteSqlCommand("Update Vaccins set description='" + viewVaccin.ToString() + "' where ID_Vaccin =" + idVac);
                     }
-                    else
-                    {
-                        db.Database.ExecuteSqlCommand("Update Vaccins set description='' where ID_Vaccin =" + idVac);
-                    }
                 }
-                if (idVac == 0 && !string.IsNullOrEmpty(viewVaccin))
+                if (idVac == 0)
                 {
-                    v.description = viewVaccin.ToString();
-                    v.ID_Consultation = consultation.ID_Consultation;
-                    v.ID_PATIENT = consultation.ID_Patient;
-                    v.date = DateTime.Now;
-                    db.Vaccins.Add(v);
+                    if (!string.IsNullOrEmpty(viewVaccin))
+                    {
+                        v.description = viewVaccin.ToString();
+                        v.ID_Consultation = consultation.ID_Consultation;
+                        v.ID_PATIENT = consultation.ID_Patient;
+                        v.date = DateTime.Now;
+                        db.Vaccins.Add(v);
+                    }
+                   
                 }
                 if (idOrd > 0)
                 {
@@ -181,35 +223,32 @@ namespace Clinic.Models.Controllers
                     {
                         db.Database.ExecuteSqlCommand("Update Ordonnances set prescription='" + viewPrescription.ToString() + "' where ID_Ordonnance =" + idOrd);
                     }
-                    else
-                    {
-                        db.Database.ExecuteSqlCommand("Update Ordonnances set prescription='' where ID_Ordonnance =" + idOrd);
-                    }
-                }
-                if (idOrd == 0 && !string.IsNullOrEmpty(viewPrescription))
-                {
-                    o.prescription = viewPrescription.ToString();
-                    o.ID_Consultation = consultation.ID_Consultation;
-                    db.Ordonnances.Add(o);
-                }
-                if (idOrd > 0)
-                {
+                    //else
+                    //{
+                    //    db.Database.ExecuteSqlCommand("Update Ordonnances set prescription='' where ID_Ordonnance =" + idOrd);
+                    //}
                     if (!string.IsNullOrEmpty(viewMedicament))
                     {
                         db.Database.ExecuteSqlCommand("Update Ordonnances set medicament='" + viewMedicament.ToString() + "' where ID_Ordonnance =" + idOrd);
                     }
-                    else
-                    {
-                        db.Database.ExecuteSqlCommand("Update Ordonnances set medicament='' where ID_Ordonnance =" + idOrd);
-                    }
+                   
                 }
-                if (idOrd == 0 && !string.IsNullOrEmpty(viewMedicament))
+                if (idOrd == 0)
                 {
-                    o.medicament = viewMedicament.ToString();
-                    o.ID_Consultation = consultation.ID_Consultation;
-                    db.Ordonnances.Add(o);
+                    if (!string.IsNullOrEmpty(viewPrescription))
+                    {
+                        o.prescription = viewPrescription.ToString();
+                        o.ID_Consultation = consultation.ID_Consultation;
+                        db.Ordonnances.Add(o);
+                    }
+                    if (!string.IsNullOrEmpty(viewMedicament))
+                    {
+                        o.medicament = viewMedicament.ToString();
+                        o.ID_Consultation = consultation.ID_Consultation;
+                        db.Ordonnances.Add(o);
+                    }
+                    
                 }
-
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -12,34 +12,47 @@
 </p>
 <table class="table">
     <tr>
-        <th>Nom
+        <th>
+            Numéro de patient
+            @*@Html.DisplayNameFor(model => model.ID_Patient)*@
+        </th>
+        <th>
+            Nom
             @*@Html.DisplayNameFor(model => model.nom)*@
         </th>
-        <th>Prenom
+        <th>
+            Prenom
             @*@Html.DisplayNameFor(model => model.prenom)*@
         </th>
-        <th>Date de naissance
+        <th>
+            Date de naissance
             @*@Html.DisplayNameFor(model => model.date_naissance)*@
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.sexe)*@
         </th>
-        <th>Profession
+        <th>
+            Profession
             @*@Html.DisplayNameFor(model => model.profession)*@
         </th>
-        <th>Situation familial
+        <th>
+            Situation familial
             @*@Html.DisplayNameFor(model => model.situation_familial)*@
         </th>
-        <th>Groupe sanguin
+        <th>
+            Groupe sanguin
             @*@Html.DisplayNameFor(model => model.groupe_sanguin)*@
         </th>
-        <th>Mail
+        <th>
+            Mail
             @*@Html.DisplayNameFor(model => model.email)*@
         </th>
         <th>
+            Telephone
             @*@Html.DisplayNameFor(model => model.telephone)*@
         </th>
-        <th>Date de creation
+        <th>
+            Date de creation
             @*@Html.DisplayNameFor(model => model.dateCreation)*@
         </th>
         <th></th>
@@ -47,6 +60,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_Patient)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.nom)
         </td>
@@ -78,9 +94,9 @@
             @Html.DisplayFor(modelItem => item.dateCreation)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Patient }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_Patient }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Patient })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID_Patient }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID_Patient }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID_Patient })
         </td>
     </tr>
 }

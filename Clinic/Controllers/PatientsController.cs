@@ -32,6 +32,8 @@ namespace Clinic.Models.Controllers
             {
                 return HttpNotFound();
             }
+            patient.adress = GetAdress(patient.ID_Patient);
+            patient.cp = GetContactPAtient(patient.ID_Patient);
             return View(patient);
         }
 
@@ -50,7 +52,7 @@ namespace Clinic.Models.Controllers
             using (var cp = new ClinicEntities())
             {
                 var obj = cp.ContactPAtients
-                                            .Where(contactPatient => contactPatient.ID_ContactPatient == idContactPatient)
+                                            .Where(contactPatient => contactPatient.ID_PATIENT == idContactPatient)
                                             .Select(st => new {
                                                 Nom = st.nom,
                                                 Prenom = st.prenom,
@@ -143,7 +145,6 @@ namespace Clinic.Models.Controllers
             }
 
             patient.adress = GetAdress(patient.ID_Patient);
-
             patient.cp = GetContactPAtient(patient.ID_Patient);
             return View(patient);
         }
@@ -158,6 +159,99 @@ namespace Clinic.Models.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(patient).State = EntityState.Modified;
+                Adress adrc = new Adress();
+                ContactPAtient cp = new ContactPAtient();
+
+                string pays = Request["adress.pays"].ToString();
+                string ville = Request["adress.ville"].ToString();
+                string prefecture = Request["adress.prefecture"].ToString();
+                string village = Request["adress.village"].ToString();
+
+                string nomCp = Request["cp.nom"].ToString();
+                string prenomCp = Request["cp.prenom"].ToString();
+                string sexeCp = Request["cp.sexe"].ToString();
+                string professionCp = Request["cp.profession"].ToString();
+                string emailCp = Request["cp.email"].ToString();
+                string telephoneCp = Request["cp.telephone"].ToString();
+
+                int idAdrc = db.Adresses.Where(id => id.ID_Patient == patient.ID_Patient).Select(x => x.ID_Adresse).DefaultIfEmpty(0).First();
+                int idCp = db.ContactPAtients.Where(id => id.ID_PATIENT == patient.ID_Patient).Select(x => x.ID_ContactPatient).DefaultIfEmpty(0).First();
+
+                if(idAdrc > 0)
+                {
+                    if (!string.IsNullOrEmpty(pays))
+                    {
+                        db.Database.ExecuteSqlCommand("Update Adresses set pays='" + pays.ToString() + "' where ID_Adresse =" + idAdrc);
+                    }
+                    if (!string.IsNullOrEmpty(ville))
+                    {
+                        db.Database.ExecuteSqlCommand("Update Adresses set ville='" + ville.ToString() + "' where ID_Adresse =" + idAdrc);
+                    }
+                    if (!string.IsNullOrEmpty(prefecture))
+                    {
+                        db.Database.ExecuteSqlCommand("Update Adresses set prefecture='" + prefecture.ToString() + "' where ID_Adresse =" + idAdrc);
+                    }
+                    if (!string.IsNullOrEmpty(village))
+                    {
+                        db.Database.ExecuteSqlCommand("Update Adresses set village='" + village.ToString() + "' where ID_Adresse =" + idAdrc);
+                    }
+                }
+                if (idAdrc == 0)
+                {
+                    if (!string.IsNullOrEmpty(pays) || !string.IsNullOrEmpty(ville) || !string.IsNullOrEmpty(prefecture) || !string.IsNullOrEmpty(village))
+                    {
+                        adrc.ID_Patient = patient.ID_Patient;
+                        adrc.pays = pays;
+                        adrc.ville = ville;
+                        adrc.prefecture = prefecture;
+                        adrc.village = village;
+                        db.Adresses.Add(adrc);
+                    }
+                   
+                }
+
+                if(idCp > 0)
+                {
+                    if (!string.IsNullOrEmpty(nomCp))
+                    {
+                        db.Database.ExecuteSqlCommand("Update ContactPAtients set nom='" + nomCp.ToString() + "' where ID_ContactPatient =" + idCp);
+                    }
+                    if (!string.IsNullOrEmpty(prenomCp))
+                    {
+                        db.Database.ExecuteSqlCommand("Update ContactPAtients set prenom='" + prenomCp.ToString() + "' where ID_ContactPatient =" + idCp);
+                    }
+                    if (!string.IsNullOrEmpty(sexeCp))
+                    {
+                        db.Database.ExecuteSqlCommand("Update ContactPAtients set sexe='" + sexeCp.ToString() + "' where ID_ContactPatient =" + idCp);
+                    }
+                    if (!string.IsNullOrEmpty(professionCp))
+                    {
+                        db.Database.ExecuteSqlCommand("Update ContactPAtients set profession='" + professionCp.ToString() + "' where ID_ContactPatient =" + idCp);
+                    }
+                    if (!string.IsNullOrEmpty(emailCp))
+                    {
+                        db.Database.ExecuteSqlCommand("Update ContactPAtients set email='" + emailCp.ToString() + "' where ID_ContactPatient =" + idCp);
+                    }
+                    if (!string.IsNullOrEmpty(telephoneCp))
+                    {
+                        db.Database.ExecuteSqlCommand("Update ContactPAtients set telephone='" + telephoneCp.ToString() + "' where ID_ContactPatient =" + idCp);
+                    }
+                }
+                if(idCp == 0)
+                {
+                    if(!string.IsNullOrEmpty(nomCp) || !string.IsNullOrEmpty(prenomCp) || !string.IsNullOrEmpty(sexeCp) || !string.IsNullOrEmpty(professionCp) || !string.IsNullOrEmpty(emailCp) || !string.IsNullOrEmpty(telephoneCp))
+                    {
+                        cp.ID_PATIENT = patient.ID_Patient;
+                        cp.nom = nomCp;
+                        cp.prenom = prenomCp;
+                        cp.sexe = sexeCp;
+                        cp.profession = professionCp;
+                        cp.email = emailCp;
+                        cp.telephone = telephoneCp;
+                        db.ContactPAtients.Add(cp);
+                    }
+                    
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

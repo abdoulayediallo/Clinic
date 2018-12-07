@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ClinicModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ClinicModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Adresses">
           <Key>
             <PropertyRef Name="ID_Adresse" />
@@ -114,6 +114,7 @@
           <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="login" Type="varchar" MaxLength="50" />
           <Property Name="password" Type="varchar" MaxLength="20" />
+          <Property Name="role" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Vaccins">
           <Key>
@@ -327,8 +328,7 @@
             <End Role="Vaccins" EntitySet="Vaccins" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ClinicModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -461,6 +461,7 @@
           <NavigationProperty Name="Adresses" Relationship="Self.FK_Adresse_Staff" FromRole="Staffs" ToRole="Adresses" />
           <NavigationProperty Name="Consultations" Relationship="Self.FK_Consultations_Staffs" FromRole="Staffs" ToRole="Consultations" />
           <NavigationProperty Name="Staff_Roles" Relationship="Self.FK_Staff_Roles_Staffs" FromRole="Staffs" ToRole="Staff_Roles" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Vaccin">
           <Key>
@@ -790,6 +791,7 @@
           <EntitySetMapping Name="Staffs">
             <EntityTypeMapping TypeName="ClinicModel.Staff">
               <MappingFragment StoreEntitySet="Staffs">
+                <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="ID_Staff" ColumnName="ID_Staff" />
                 <ScalarProperty Name="nom" ColumnName="nom" />
                 <ScalarProperty Name="prenom" ColumnName="prenom" />

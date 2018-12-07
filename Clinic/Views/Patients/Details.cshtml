@@ -11,8 +11,10 @@
     <h4>Patient</h4>
     <hr />
     <dl class="dl-horizontal">
+        <h3>Donnée général</h3>
         <dt>
-            @Html.DisplayNameFor(model => model.nom)
+            Nom
+            @*@Html.DisplayNameFor(model => model.nom)*@
         </dt>
 
         <dd>
@@ -20,7 +22,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.prenom)
+            Prenom
+            @*@Html.DisplayNameFor(model => model.prenom)*@
         </dt>
 
         <dd>
@@ -28,7 +31,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.date_naissance)
+            Date de naissance
+            @*@Html.DisplayNameFor(model => model.date_naissance)*@
         </dt>
 
         <dd>
@@ -36,7 +40,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.sexe)
+            Sexe
+            @*@Html.DisplayNameFor(model => model.sexe)*@
         </dt>
 
         <dd>
@@ -44,7 +49,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.profession)
+            Profession
+            @*@Html.DisplayNameFor(model => model.profession)*@
         </dt>
 
         <dd>
@@ -52,7 +58,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.situation_familial)
+            Situation familial
+            @*@Html.DisplayNameFor(model => model.situation_familial)*@
         </dt>
 
         <dd>
@@ -60,7 +67,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.groupe_sanguin)
+            Groupe sanguin
+            @*@Html.DisplayNameFor(model => model.groupe_sanguin)*@
         </dt>
 
         <dd>
@@ -68,7 +76,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.email)
+            Email
+            @*@Html.DisplayNameFor(model => model.email)*@
         </dt>
 
         <dd>
@@ -76,7 +85,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.telephone)
+            Telephone
+            @*@Html.DisplayNameFor(model => model.telephone)*@
         </dt>
 
         <dd>
@@ -84,11 +94,85 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.dateCreation)
+            Date de creation
+            @*@Html.DisplayNameFor(model => model.dateCreation)*@
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.dateCreation)
+        </dd>
+        <h3>Adresse</h3>
+        <dt>
+            Pays
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adress.pays)
+        </dd>
+        <dt>
+            Ville
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adress.ville)
+        </dd>
+        <dt>
+            Prefecture
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adress.prefecture)
+        </dd>
+        <dt>
+            Village
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adress.village)
+        </dd>
+
+        <h3>Contact</h3>
+        <dt>
+            Nom
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cp.nom)
+        </dd>
+        <dt>
+            Prenom
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cp.prenom)
+        </dd>
+        <dt>
+            Sexe
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cp.sexe)
+        </dd>
+        <dt>
+            Profession
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cp.profession)
+        </dd>
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cp.email)
+        </dd>
+        <dt>
+            telephone
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cp.telephone)
         </dd>
 
     </dl>

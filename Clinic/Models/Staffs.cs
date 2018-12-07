@@ -12,7 +12,6 @@ namespace Clinic.Models
             this.adress = new Adress();
         }
         public DateTime creationDate { get; set; }
-        public string role { get; set; }
         public virtual Adress adress { get; set; }
     }
 }

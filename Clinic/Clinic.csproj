@@ -165,17 +165,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdressesController.cs" />
-    <Compile Include="Controllers\AntecedentsController.cs" />
     <Compile Include="Controllers\ConsultationsController.cs" />
-    <Compile Include="Controllers\ContactPAtientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OrdonnancesController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
-    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
-    <Compile Include="Controllers\Staff_RolesController.cs" />
-    <Compile Include="Controllers\VaccinsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -272,6 +265,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Home\1.jpg" />
+    <Content Include="Views\Home\3.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -306,11 +301,6 @@
     <Content Include="Views\Consultations\Details.cshtml" />
     <Content Include="Views\Consultations\Edit.cshtml" />
     <Content Include="Views\Consultations\Index.cshtml" />
-    <Content Include="Views\Adresses\Create.cshtml" />
-    <Content Include="Views\Adresses\Delete.cshtml" />
-    <Content Include="Views\Adresses\Details.cshtml" />
-    <Content Include="Views\Adresses\Edit.cshtml" />
-    <Content Include="Views\Adresses\Index.cshtml" />
     <Content Include="Views\Antecedents\Create.cshtml" />
     <Content Include="Views\Antecedents\Delete.cshtml" />
     <Content Include="Views\Antecedents\Details.cshtml" />
