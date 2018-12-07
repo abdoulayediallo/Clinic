@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Clinic.Ordonnance>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.prescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.medicament)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Consultation.motif)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.prescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.medicament)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Consultation.motif)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Ordonnance }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_Ordonnance }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Ordonnance })
+        </td>
+    </tr>
+}
+
+</table>

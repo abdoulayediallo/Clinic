@@ -1,0 +1,35 @@
+﻿@model Clinic.Staff_Roles
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Staff_Roles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Role.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Staff.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff.nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Staff_Role }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

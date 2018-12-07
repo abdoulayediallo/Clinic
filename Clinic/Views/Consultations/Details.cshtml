@@ -1,0 +1,141 @@
+﻿@model Clinic.Models.Consultation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Consultation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dateCreation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateCreation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.motif)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motif)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.poids)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.poids)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.taille)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.taille)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temperature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temperature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.systol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.systol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diastol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diastol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diagnostique)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diagnostique)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.maladie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maladie)
+        </dd>
+
+        <dt>
+            Vaccin
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vaccin.description)
+        </dd>
+
+        <dt>
+            Prescription
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ordonnance.prescription)
+        </dd>
+
+        <dt>
+            Ordonnance
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ordonnance.medicament)
+        </dd>
+
+        <dt>
+            Patient
+            @*@Html.DisplayNameFor(model => model.Patient.nom)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.nom)  @Html.DisplayFor(model => model.Patient.prenom)
+        </dd>
+
+        <dt>
+            Médecin
+            @*@Html.DisplayNameFor(model => model.Staff.ID_Staff)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff.nom) @Html.DisplayFor(model => model.Staff.prenom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Consultation }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

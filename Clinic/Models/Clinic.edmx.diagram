@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0dd22d86bdc0427989a5ac23a2043ee1" Name="Diagram1">
+        <EntityTypeShape EntityType="ClinicModel.Adress" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Antecedent" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Consultation" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.ContactPAtient" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Ordonnance" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Patient" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Role" Width="1.5" PointX="0.75" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Staff_Roles" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Staff" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Vaccin" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="ClinicModel.FK_Adresse_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Adresse_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Antecedent_Consultation" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Antecedent_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Consultation_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Consultations_Staffs" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Ordonnace_Consultation" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Vaccin_Consultation" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Vaccin_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Staff_Roles_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK_Staff_Roles_Staffs" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
