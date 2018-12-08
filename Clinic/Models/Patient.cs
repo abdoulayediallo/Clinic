@@ -11,7 +11,8 @@ namespace Clinic.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Patient
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,6 +28,7 @@ namespace Clinic.Models
         public int ID_Patient { get; set; }
         public string nom { get; set; }
         public string prenom { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> date_naissance { get; set; }
         public string sexe { get; set; }
         public string profession { get; set; }
@@ -34,6 +36,7 @@ namespace Clinic.Models
         public string groupe_sanguin { get; set; }
         public string email { get; set; }
         public string telephone { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> dateCreation { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

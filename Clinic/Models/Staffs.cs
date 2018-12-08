@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Clinic.Models
 {
@@ -11,7 +14,9 @@ namespace Clinic.Models
         {
             this.adress = new Adress();
         }
+        
         public DateTime creationDate { get; set; }
         public virtual Adress adress { get; set; }
+
     }
 }

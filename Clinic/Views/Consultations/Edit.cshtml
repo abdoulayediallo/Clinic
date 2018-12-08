@@ -8,7 +8,7 @@
 
 }
 
-<h2>Edit</h2>
+<h2>Modification consultation</h2>
 
 
 
@@ -35,7 +35,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.motif, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.motif, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextAreaFor(model => model.motif, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.motif, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.note, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.note, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextAreaFor(model => model.note, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.note, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -91,7 +91,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.diagnostique, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.diagnostique, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextAreaFor(model => model.diagnostique, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.diagnostique, "", new { @class = "text-danger" })
         </div>
     </div>

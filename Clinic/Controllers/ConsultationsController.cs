@@ -64,7 +64,7 @@ namespace Clinic.Models.Controllers
                 string prescription = Request["prescription"].ToString();
                 string medicament = Request["medicament"].ToString();
                 string vac = Request["vac"].ToString();
-                string antecedent = Request["antecedent"];
+                string antecedent = Request["ant"];
 
                 if (!string.IsNullOrEmpty(antecedent))
                 {

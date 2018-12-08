@@ -32,9 +32,30 @@ namespace Clinic.Models.Controllers
             {
                 return HttpNotFound();
             }
+            staff.adress = GetAdress(staff.ID_Staff);
             return View(staff);
         }
+        public Adress GetAdress(int idStaff)
+        {
+            Adress adr = new Adress();
+            using (var cp = new ClinicEntities())
+            {
+                var obj = cp.Adresses
+                                            .Where(adresse => adresse.ID_Staff == idStaff)
+                                            .Select(st => new {
+                                                Pays = st.pays,
+                                                Ville = st.ville,
+                                                Prefecture = st.prefecture,
+                                                Village = st.village
+                                            });
 
+                adr.pays = obj.Select(x => x.Pays).DefaultIfEmpty("").First();
+                adr.ville = obj.Select(x => x.Ville).DefaultIfEmpty("").First();
+                adr.prefecture = obj.Select(x => x.Prefecture).DefaultIfEmpty("").First();
+                adr.village = obj.Select(x => x.Village).DefaultIfEmpty("").First();
+            }
+            return adr;
+        }
         // GET: Staffs/Create
         public ActionResult Create()
         {
@@ -48,9 +69,25 @@ namespace Clinic.Models.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID_Staff,nom,prenom,sexe,phone,email,login,password,role")] Staff staff)
         {
+            Adress adress = new Adress();
             if (ModelState.IsValid)
             {
                 db.Staffs.Add(staff);
+
+                string pays = Request["pays"].ToString();
+                string ville = Request["ville"].ToString();
+                string prefecture = Request["prefecture"].ToString();
+                string village = Request["village"].ToString();
+                if (!string.IsNullOrEmpty(pays) || !string.IsNullOrEmpty(ville) || !string.IsNullOrEmpty(prefecture) || !string.IsNullOrEmpty(village))
+                {
+                    adress.ID_Staff = staff.ID_Staff;
+                    adress.pays = !string.IsNullOrEmpty(pays) ? pays : "";
+                    adress.ville = !string.IsNullOrEmpty(ville) ? ville : "";
+                    adress.prefecture = !string.IsNullOrEmpty(prefecture) ? prefecture : "";
+                    adress.village = !string.IsNullOrEmpty(village) ? village : "";
+                    db.Adresses.Add(adress);
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -70,6 +107,7 @@ namespace Clinic.Models.Controllers
             {
                 return HttpNotFound();
             }
+            staff.adress = GetAdress(staff.ID_Staff);
             return View(staff);
         }
 
@@ -83,6 +121,49 @@ namespace Clinic.Models.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(staff).State = EntityState.Modified;
+
+                Adress adrc = new Adress();
+
+                string pays = Request["adress.pays"].ToString();
+                string ville = Request["adress.ville"].ToString();
+                string prefecture = Request["adress.prefecture"].ToString();
+                string village = Request["adress.village"].ToString();
+
+                int idAdrc = db.Adresses.Where(id => id.ID_Staff == staff.ID_Staff).Select(x => x.ID_Adresse).DefaultIfEmpty(0).First();
+
+                if (idAdrc > 0)
+                {
+                    if (!string.IsNullOrEmpty(pays))
+                    {
+                        db.Database.ExecuteSqlCommand("Update Adresses set pays='" + pays.ToString() + "' where ID_Adresse =" + idAdrc);
+                    }
+                    if (!string.IsNullOrEmpty(ville))
+                    {
+                        db.Database.ExecuteSqlCommand("Update Adresses set ville='" + ville.ToString() + "' where ID_Adresse =" + idAdrc);
+                    }
+                    if (!string.IsNullOrEmpty(prefecture))
+                    {
+                        db.Database.ExecuteSqlCommand("Update Adresses set prefecture='" + prefecture.ToString() + "' where ID_Adresse =" + idAdrc);
+                    }
+                    if (!string.IsNullOrEmpty(village))
+                    {
+                        db.Database.ExecuteSqlCommand("Update Adresses set village='" + village.ToString() + "' where ID_Adresse =" + idAdrc);
+                    }
+                }
+                if (idAdrc == 0)
+                {
+                    if (!string.IsNullOrEmpty(pays) || !string.IsNullOrEmpty(ville) || !string.IsNullOrEmpty(prefecture) || !string.IsNullOrEmpty(village))
+                    {
+                        adrc.ID_Staff = staff.ID_Staff;
+                        adrc.pays = pays;
+                        adrc.ville = ville;
+                        adrc.prefecture = prefecture;
+                        adrc.village = village;
+                        db.Adresses.Add(adrc);
+                    }
+
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

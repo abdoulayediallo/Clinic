@@ -44,6 +44,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.role)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.email)
         </dt>
 
@@ -68,11 +76,39 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Staff_Roles)
+            @Html.DisplayNameFor(model => model.role)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Staff_Roles)
+            @Html.DisplayFor(model => model.role)
+        </dd>
+
+        <dt>
+            Pays
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adress.pays)
+        </dd>
+        <dt>
+            Ville
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adress.ville)
+        </dd>
+        <dt>
+            Prefecture
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adress.prefecture)
+        </dd>
+        <dt>
+            Village
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.adress.village)
         </dd>
 
     </dl>
